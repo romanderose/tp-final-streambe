@@ -5,13 +5,14 @@ function Detalles() {
 
     const { id } = useParams()
     const { addToCart } = useCart()
-    const articulos = [
-        {id: 1, nombre: "Figuritas", precio:1300},
-        {id: 2, nombre: "Bermuda", precio:20000},
-        {id: 3, nombre: "Bufanda", precio:2500}
+    
+    const articles = [
+        {id: 1, name: "Figuritas", precio:1300},
+        {id: 2, name: "Bermuda", precio:20000},
+        {id: 3, name: "Bufanda", precio:2500}
     ]
 
-    const article = articulos.find(art => art.id === parseInt(id))
+    const article = articles.find(article => article.id === parseInt(id))
 
     return(
         <div>
@@ -19,7 +20,7 @@ function Detalles() {
 
             <p>ID: { id }</p>
 
-            <p>Nombre: {article.nombre}</p>
+            <p>Nombre: {article.name}</p>
 
             <button onClick={() => addToCart(article)}>
                 Agregar al carrito 

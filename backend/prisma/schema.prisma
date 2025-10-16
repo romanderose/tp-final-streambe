@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Articles {
+  id           Int     @id(map: "PK__articles__3213E83FE367B661") @default(autoincrement())
+  name_article String  @db.NVarChar(100)
+  price        Decimal @db.Decimal(10, 2)
+  active       Boolean @default(true, map: "DF__articles__activo__37A5467C")
+}

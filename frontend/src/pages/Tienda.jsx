@@ -1,27 +1,42 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import API_BASE_URL from "../config/api"
 
 function Tienda() {
-    const articulos = [
-        {id: 1, nombre: "Figuritas", precio:1300},
-        {id: 2, nombre: "Bermuda", precio:20000},
-        {id: 3, nombre: "Bufanda", precio:2500}
-    ]
 
-    return(
+    const [articles, setArticles] = useState([])
+
+    useEffect(()=>{
+        fetch(`${API_BASE_URL}/articles`, {
+            method: "GET",
+            headers: {
+                "Content-Type" : "application/json"
+            }
+        })
+        .then((res) => res.json())
+        .then((data) => {setArticles(data)
+            console.log("data articles", data)
+        })
+        .catch((err) => console.error("Error al traer artículos: ", err))
+    }, [])
+
+    return (
         <>
-            {articulos.map(articulo => (
-                <div key={articulo.id}>
-
-                    <Link to={`/detalles/${articulo.id}`}>
-
-                        <h2>{articulo.nombre}</h2>
-                        
-                        <p>Ver detalles:</p>
-                    </Link>
-                </div>
-            ))}
+            {articles.length === 0 ? (
+                <p>Cargando artículos...</p>
+            ) : (
+                articles.map(article => (
+                    <div key={article.id}>
+                        <Link to={`/detalles/${article.id}`}>
+                            <h2>{article.name_article}</h2>
+                            <p>Ver detalles:</p>
+                        </Link>
+                    </div>
+                ))
+            )}
         </>
     )
+
 }
  
 export default Tienda
