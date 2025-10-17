@@ -40,20 +40,19 @@ async function searchArticle(name_article) {
 }
 
 // Función asincrónica para agregar un nuevo artículo a la base de datos
-async function addArticle(name_article, price) {
-    const article = await prisma.Articles.create({
+async function addArticle(name_article, price, image) {
+
+    return await prisma.Articles.create({
         data: {
             name_article: name_article, // Nombre del artículo
-            price: price,               // Precio del artículo
-            active: true                // Se marca como activo por defecto
+            price: parseFloat(price),  //precio
+            imageUrl: image ? `uploads/${image}` : null
         }
     })
-
-    return article
 }
 
 // Función asincrónica para actualizar los datos de un artículo existente
-async function updateArticle(id, name_article, price) {
+async function updateArticle(id, name_article, price, image) {
     const article = await prisma.Articles.update({
         where: {
             id: parseInt(id) // Identificador del artículo a actualizar

@@ -1,0 +1,23 @@
+#af-container{
+    margin: 50px;
+}
+
+#articleForm{
+    background-color: rgba(160, 15, 15, 0.74);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.form-item{
+    margin-top: 15px;
+}
+
+#publicar{
+    border-radius: 5px;
+    padding: 5px;
+    width: 100px;
+}
+
+#publicar:hover{
+    background-color: gold;
+}

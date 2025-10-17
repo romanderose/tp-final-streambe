@@ -22,6 +22,12 @@ app.use(cors())
 // Middleware que permite a la app entender cuerpos de solicitudes en formato JSON
 app.use(express.json())
 
+const path = require('path');
+
+// Servir archivos estáticos desde la carpeta "uploads"
+app.use('/uploads', express.static('./uploads'));
+
+
 // Usa el enrutador 'articlesRouter' para manejar todas las rutas que comienzan con '/articles'
 app.use('/articles', articlesRouter);
 

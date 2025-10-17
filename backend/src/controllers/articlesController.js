@@ -50,12 +50,15 @@ async function getByIdController(req, res) {
     }
 }
 
-
 // Controlador para crear un nuevo artículo
 async function createController(req, res) {
     try {
         // Obtenemos los datos enviados en el cuerpo de la solicitud
         const { name_article, price } = req.body;
+
+        const image = req.file
+
+        console.log("imagen subida: ", image)
 
         // ✅ Validación del nombre del artículo
         if (!name_article || typeof name_article !== 'string' || name_article.trim() === '') {
@@ -75,7 +78,7 @@ async function createController(req, res) {
         const numericPrice = parseFloat(price);
 
         // Llamamos al modelo para insertar el nuevo artículo en la base de datos
-        await articlesModel.addArticle(name_article, numericPrice);
+        await articlesModel.addArticle(name_article, numericPrice, image?.filename);
 
         // ✅ Respuesta de éxito si el artículo fue creado correctamente
         res.status(201).json({ message: 'Artículo creado correctamente.' });
@@ -104,7 +107,36 @@ async function updateController(req, res) {
     }
 }
 
+// Controlador para eliminar un artículo por su ID
+async function deleteController(req, res) {
+    try {
+        // Obtenemos el ID desde los parámetros de la solicitud
+        const { id } = req.params;
+
+        // Convertimos el ID a número entero
+        const parsedId = parseInt(id, 10);
+
+        // Validamos que el ID sea un número válido
+        if (isNaN(parsedId)) {
+            return res.status(400).json({
+                error: "ID inválido. Debe ser un número entero."
+            });
+        }
+
+        // Llamamos al modelo para eliminar el artículo de la base de datos
+        await articlesModel.deleteArticle(parsedId);
+
+        // Respondemos con un mensaje de éxito
+        res.status(200).json({ message: 'Artículo eliminado correctamente.' });
+
+    } catch (error) {
+        // Si ocurre un error inesperado, respondemos con código 500 y el mensaje del error
+        console.error("❌ Error en deleteController:", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 // Exportamos los controladores para que puedan ser utilizados en las rutas
 module.exports = { getAllController, createController, updateController, 
-    getByIdController, searchController
+    getByIdController, searchController, deleteController
 };

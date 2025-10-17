@@ -12,4 +12,7 @@ model Articles {
   name_article String  @db.NVarChar(100)
   price        Decimal @db.Decimal(10, 2)
   active       Boolean @default(true, map: "DF__articles__activo__37A5467C")
+  imageUrl String? @db.NVarChar(255)
+
+  @@map("articles")
 }
