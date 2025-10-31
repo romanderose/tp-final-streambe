@@ -7,7 +7,7 @@ import Header from './components/Header'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Cart from './components/cart/Cart'
-import ArticleForm from './components/form/articleForm'
+import ArticleForm from './components/form/ArticleForm'
 import SearchEditArticle from './components/form/SearchEditArticle'
 
 import Home from './pages/Home'
