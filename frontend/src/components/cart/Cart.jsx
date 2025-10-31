@@ -15,7 +15,7 @@ function Cart(){
                             <li key={item.id}>
                                 <img
                                     id='img-cart' 
-                                    src={`${API_BASE_URL}/${item.imageUrl}`} 
+                                    src={`${API_BASE_URL}${item.imageUrl}`} 
                                     alt={item.name_article} 
                                 />
 

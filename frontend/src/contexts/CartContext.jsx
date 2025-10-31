@@ -27,6 +27,7 @@ export function CartProvider({children}) {
     }
 
     const removeFromCart = (articleId) => {
+        console.log("Eliminando artículo con id:", articleId);
         setCart((prev) => prev.filter(item => item.id !== articleId))
     }
 

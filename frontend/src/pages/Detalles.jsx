@@ -21,7 +21,7 @@ function Detalles() {
 
             <img 
                 className="img-detalle"
-                src={`${API_BASE_URL}/${article.imageUrl}`} 
+                src={`${API_BASE_URL}${article.imageUrl}`} 
                 alt={article.name_article} 
             />
 

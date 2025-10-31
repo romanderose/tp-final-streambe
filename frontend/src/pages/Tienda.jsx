@@ -17,7 +17,7 @@ function Tienda() {
                             {console.log("IMAGE: ", article.imageUrl)}
                             <img 
                                 className="img-detalle"
-                                src={`${API_BASE_URL}/${article.imageUrl}`}
+                                src={`${API_BASE_URL}${article.imageUrl}`}
                                 alt={article.name_article} 
                             />
 
