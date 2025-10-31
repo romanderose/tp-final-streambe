@@ -1,8 +1,4 @@
-// Importamos PrismaClient desde el paquete @prisma/client
-const { PrismaClient } = require('@prisma/client')
-
-// Creamos una instancia de PrismaClient para interactuar con la base de datos
-const prisma = new PrismaClient()
+const { prisma } = require('../db/connection');
 
 // Función asincrónica para obtener todos los artículos de la base de datos
 async function getAllArticles() {

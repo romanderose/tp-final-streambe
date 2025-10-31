@@ -1,6 +1,10 @@
+import '../styles/components/Footer.css'
+
 function Footer() {
     return(
-        <div>Footer</div>
+        <footer>
+            RDRAB '25. Por Román De Rose. 30 de octubre de 2025 &copy;
+        </footer>
     )
 }
 

@@ -1,0 +1,10 @@
+nav{
+    background-color: aquamarine;
+}
+
+#menu{
+    display: flex;
+    gap: 80px;
+    list-style: none;
+    padding: 5px 80px;
+}

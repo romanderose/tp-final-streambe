@@ -11,7 +11,7 @@ function Cart(){
                     <ul>
                         {cart.map((item) => (
                             <li key={item.id}>
-                                {item.nombre} - {item.precio}
+                                {item.name_article} - {item.price}
                                 <button onClick={()=> removeFromCart(item.id)}>
                                     X
                                 </button>

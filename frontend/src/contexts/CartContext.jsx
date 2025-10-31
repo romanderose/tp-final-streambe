@@ -22,12 +22,12 @@ export function CartProvider({children}) {
         localStorage.setItem("cart", JSON.stringify(cart))
     }, [cart])
 
-    const addToCart = (product) => {
-        setCart((prev) => [...prev, product])
+    const addToCart = (article) => {
+        setCart((prev) => [...prev, article])
     }
 
-    const removeFromCart = (productId) => {
-        setCart((prev) => prev.filter(item => item.id !== productId))
+    const removeFromCart = (articleId) => {
+        setCart((prev) => prev.filter(item => item.id !== articleId))
     }
 
     const cleanCart = () => {
@@ -35,7 +35,8 @@ export function CartProvider({children}) {
     }
 
     const totalItems = cart.length
-    const totalPrice = cart.reduce((total,item) => total + item.precio, 0)
+    const totalPrice = cart.reduce((total,item) => total + parseInt(item.price) /*para
+    que no me muestre el 0 al principio */, 0)
 
     return(
         <CartContext.Provider value={{cart, addToCart, removeFromCart, 

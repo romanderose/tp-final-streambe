@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const articlesController = require('../controllers/articlesController');
+const path = require('path');
 const multer = require('multer');
 
-const path = require('path');
+// Controlador
+const articlesController = require('../controllers/articlesController');
 
+// --- Configuración de Multer (para subida de imágenes) ---
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
@@ -16,34 +18,24 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage, dest: "uploads/" });
 
+// --- Rutas ---
 
-// Ruta GET para obtener todos los artículos
+// Obtener todos los artículos
 router.get('/', articlesController.getAllController);
 
-// Ruta POST para crear un nuevo artículo
+// Crear un nuevo artículo (con imagen)
 router.post('/', upload.single("image"), articlesController.createController);
 
-//para obtener un producto por su nombre o parte de él (si existe)
-router.get('/search', articlesController.searchController)
+// Buscar artículos por nombre o parte de él
+router.get('/search', articlesController.searchController);
 
-// Ruta GET para obtener un artículo por su ID
+// Obtener un artículo por ID
 router.get('/:id', articlesController.getByIdController);
 
-//para actualizar un articulo
-router.put('/:id', articlesController.updateController)
+// Actualizar un artículo (opcionalmente con imagen)
+router.put('/:id', upload.single("image"), articlesController.updateController);
 
-// Ruta DELETE para eliminar un artículo por su ID
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    await prisma.Articles.delete({
-      where: { id: parseInt(id) }
-    });
-    res.json({ message: `Artículo ${id} eliminado` });
-  } catch (error) {
-    res.status(500).json({ error: 'No se pudo eliminar el artículo' });
-  }
-});
-
+// Eliminar un artículo por ID
+router.delete('/:id', articlesController.deleteController);
 
 module.exports = router;

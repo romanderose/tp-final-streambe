@@ -1,6 +1,7 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import PrivateRoute from './routes/PrivateRoute'
+import { ArticlesProvider } from './contexts/ArticlesContext'
 
 import Header from './components/Header'
 import Nav from './components/Nav'
@@ -22,20 +23,22 @@ function App() {
     <>
       <Header/>
       <Nav/>    
-    
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/tienda" element={<Tienda/>}/>
-        <Route path="/detalles/:id" element={<Detalles/>}/>
-        <Route path="/publicNewArticle" element={<ArticleForm/>}/>
-        <Route path="/editArticle" element={<SearchEditArticle/>}/>
-        <Route path="/contacto" element={<Contacto/>}/>
-        <Route path='*' element={<NotFound/>}/>
-        <Route path='/cart' element={<Cart/>}/>
-        <Route path='/dash' element={<PrivateRoute>
-          <Dashboard/>
-        </PrivateRoute>}/>
-      </Routes>
+      
+        <ArticlesProvider>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/tienda" element={<Tienda/>}/>
+            <Route path="/detalles/:id" element={<Detalles/>}/>
+            <Route path="/publicNewArticle" element={<ArticleForm/>}/>
+            <Route path="/editArticle" element={<SearchEditArticle/>}/>
+            <Route path="/contacto" element={<Contacto/>}/>
+            <Route path='*' element={<NotFound/>}/>
+            <Route path='/cart' element={<Cart/>}/>
+            <Route path='/dash' element={<PrivateRoute>
+              <Dashboard/>
+            </PrivateRoute>}/>
+          </Routes>
+        </ArticlesProvider>
 
       <Footer/>
     </>

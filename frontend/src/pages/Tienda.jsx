@@ -1,24 +1,10 @@
-import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { useArticles } from "../contexts/ArticlesContext"
 import API_BASE_URL from "../config/api"
 
 function Tienda() {
 
-    const [articles, setArticles] = useState([])
-
-    useEffect(()=>{
-        fetch(`${API_BASE_URL}/articles`, {
-            method: "GET",
-            headers: {
-                "Content-Type" : "application/json"
-            }
-        })
-        .then((res) => res.json())
-        .then((data) => {setArticles(data)
-            console.log("data articles", data)
-        })
-        .catch((err) => console.error("Error al traer artículos: ", err))
-    }, [])
+    const { articles } = useArticles()
 
     return (
         <>
@@ -28,6 +14,13 @@ function Tienda() {
                 articles.map(article => (
                     <div key={article.id}>
                         <Link to={`/detalles/${article.id}`}>
+                            {console.log("IMAGE: ", article.imageUrl)}
+                            <img 
+                                className="img-detalle"
+                                src={`${API_BASE_URL}/${article.imageUrl}`}
+                                alt={article.name_article} 
+                            />
+
                             <h2>{article.name_article}</h2>
                             <p>Ver detalles:</p>
                         </Link>

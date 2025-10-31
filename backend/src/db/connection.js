@@ -1,38 +1,25 @@
-const sql = require('mssql');
-const dbConfig = require('../config/dbConfig');
+// Importamos PrismaClient desde el paquete @prisma/client
+const { PrismaClient } = require('@prisma/client');
 
-// Definir pool fuera de la función para que sea accesible globalmente
-let pool;
+// Creamos una instancia única de PrismaClient para interactuar con la base de datos
+const prisma = new PrismaClient();
 
-// Función asincrónica para conectar a la base de datos
 const Connection = async () => {
   try {
-    console.log('Conectando a SQL Server...');
-
-    // Intentamos conectar usando la configuración de la base de datos
-    pool = await sql.connect(dbConfig);
-
-    console.log('✅ ¡Conectado a la base de datos correctamente!', {
-      server: dbConfig.server,
-      database: dbConfig.database,
-      instanceName: dbConfig.instanceName,
-      port: dbConfig.port
-    });
-
-    console.log('⚾ Pool de conexión creado.');
-
-    // Realizamos una consulta simple para probar la conexión
-    const result = await pool.request().query('SELECT 1 as test');
+    console.log('Conectando a la base de datos mediante Prisma...');
     
-    console.log("⚙ Query de prueba exitosa: ", result.recordset);
-
-    // Retorna el pool para usarlo en otros lugares
-    return pool;
+    // Verificamos la conexión realizando una simple consulta
+    await prisma.$queryRaw`SELECT 1`;
+    
+    console.log('✅ ¡Conectado correctamente a la base de datos con Prisma!');
   } catch (error) {
-    console.error('❌ Error al conectar:', error);
-    throw error;  // Lanzamos el error para que se maneje en el controlador o en otro lugar
+    console.error('❌ Error al conectar con la base de datos:', error);
+    throw error; // Propagamos el error para manejarlo en la capa superior
   }
 };
 
-// Exportar sql y Connection para que estén disponibles en otros módulos
-module.exports = { sql, Connection };
+/*
+ * prisma      → instancia principal para realizar consultas en los modelos.
+ * Connection  → función opcional para probar o inicializar la conexión.
+*/
+module.exports = { prisma, Connection };

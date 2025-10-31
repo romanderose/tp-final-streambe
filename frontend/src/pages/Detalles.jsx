@@ -1,26 +1,33 @@
 import { useParams } from "react-router-dom"
 import { useCart } from '../contexts/CartContext'
+import { useArticles } from "../contexts/ArticlesContext"
+import API_BASE_URL from "../config/api"
+import "../styles/pages/Detalles.css"
 
 function Detalles() {
 
     const { id } = useParams()
     const { addToCart } = useCart()
     
-    const articles = [
-        {id: 1, name: "Figuritas", precio:1300},
-        {id: 2, name: "Bermuda", precio:20000},
-        {id: 3, name: "Bufanda", precio:2500}
-    ]
+    const { articles } = useArticles()
 
     const article = articles.find(article => article.id === parseInt(id))
 
     return(
-        <div>
+        <div id="detalles">
             <h1>Detalles del artículo</h1>
 
-            <p>ID: { id }</p>
+            <p>ID de artículo: { id }</p>
 
-            <p>Nombre: {article.name}</p>
+            <img 
+                className="img-detalle"
+                src={`${API_BASE_URL}/${article.imageUrl}`} 
+                alt={article.name_article} 
+            />
+
+            <p>Nombre: {article.name_article}</p>
+
+            <p>Precio: ${article.price}</p>
 
             <button onClick={() => addToCart(article)}>
                 Agregar al carrito 
