@@ -1,9 +1,11 @@
 #lista-cart{
     list-style: none;
+    
 }
 
 #lista-cart > li{
-    display: flex;
+    display: flex; 
+    margin-bottom: 50px;
 }
 
 #lista-cart > li > p{
