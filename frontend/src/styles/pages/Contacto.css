@@ -1,0 +1,13 @@
+#contacto{
+    list-style: none;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#contacto > li{
+    display: flex;
+}
+
+#contacto > li > p > svg{
+    margin-right: 5px;
+}
